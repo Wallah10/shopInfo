@@ -3,7 +3,8 @@ import {useState,useEffect} from 'react'
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import BounceLoader from "react-spinners/BounceLoader";
-
+import { FiAlignJustify } from "react-icons/fi";
+import { FiX } from "react-icons/fi";
 function Home() {
     const override= {
         display: "block",
@@ -14,6 +15,7 @@ function Home() {
     const [search,setSearch]=useState('')
     const [Products,setProducts]=useState([])
     const navigate=useNavigate()
+    const [open,setOpen]=useState(false)
 
     useEffect(()=>{
           function fetchdata() {
@@ -31,10 +33,18 @@ function Home() {
     },[search])
   return (
     <div className="min-h-screen overflow-x-hidden w-[100vw] bg-[orange] flex flex-col justify-start items-center">
-        <div className="flex flex-col justify-center items-center bg-[#5c0f4b] text-[orange]
+        <header className="flex flex-col justify-center items-center bg-[#5c0f4b] text-[orange]
         fixed left-0 right-0 top-0 z-20 p-2 h-[12vh]">
-            <h1 className="text-2xl font-bold flex"><SiShopee />SHOPEE TRENDS</h1>
-            <p><i>Browser of latest products</i></p>
+          <div className="flex justify-start items-center w-[100%]">
+            <FiAlignJustify className="text-2xl font-bold ml-2 mr-2"
+            onClick={()=>setOpen(!open)}/>
+            <div>
+            <h1 className="text-2xl font-bold flex mt-2"><SiShopee />SHOPEE TRENDS</h1>
+            <p className="font-sans">Browser of latest products</p>
+            </div>
+         
+          </div>
+            
             <input 
            className=" p-1 text-[#5c0f4b] outline-none border-[#5c0f4b] rounded "
            placeholder="search"
@@ -42,8 +52,19 @@ function Home() {
            value={search}
            onChange={(e)=>setSearch(e.target.value)}></input>
 
-        </div>
-
+        </header>
+   {open?    
+         <div className="w-[80vw] z-50 h-[100vh] fixed left-0 top-0 bottom-0 bg-[#5c0f4b] text-[orange] flex flex-col justify-start
+          items centre p-2">
+          <ul className=" font-bold m-2">
+         <li onClick={()=>setOpen(!open)} className="pt-4 w-[100%] border border-[orange] rounded p-2 mt-3"><FiX className="text-2xl font-bold"/></li>
+         <li onClick={()=>navigate("/about")} className="pt-4 w-[100%] border border-[orange] rounded p-2 mt-3">About </li>
+         <li onClick={()=>navigate("/service")} className="pt-4 w-[100%] border border-[orange] rounded p-2 mt-3">Services </li>
+         <li onClick={()=>navigate("/contact")} className="pt-4 w-[100%] border border-[orange] rounded p-2 mt-3">Contact </li>
+         <li onClick={()=>navigate("/comment")} className="pt-4 w-[100%] border border-[orange] rounded p-2 mt-3">Comments</li>
+         </ul>
+         </div>:null
+}
         <div className="mt-[12.3vh] text-center border-[#5c0f4b] m-2 ">
            <div className="text-[#5c0f4b]  m-3">
             {loading? <BounceLoader
@@ -56,7 +77,7 @@ function Home() {
                        />:
                 Products.map(product=>{
                  return <div key={product.id} className="border border-[#5c0f4b] rounded
-                      grid grid-cols-1 sm:grid-cols-2 gap-4  bg-white md:m-32 md:grid md:grid-col-4">
+                      flex flex-col justify-center items-center m-3 bg-white md:m-32 md:grid md:grid-col-4">
                       <img src={product.images} alt={product.title}></img>
                       <div className="bg-[orange] justify-center items-center flex flex-col text-justify p-2 w-[100]
                       rounded">

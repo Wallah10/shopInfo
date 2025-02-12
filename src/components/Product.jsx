@@ -29,7 +29,7 @@ function Product() {
              <div className="justify-center items-center flex flex-col text-justify p-2 w-[100]
              rounded">
              <p className="font-bold underline font-sans">{product.title}</p>
-             <p><span className="font-bold">Brand : </span>{product.brand}</p>
+             <p><span className="font-bold">Category : </span>{product.category}</p>
              <p>{product.description} {product.shippingInformation}</p>
              <p className="border border-[#ffffff] p-2"><span className="font-bold text-[#5c0f4b] text-xl">Price: </span>
                 <span className="text-[red] bg-[white]">{`$ ${product.price}`}</span></p>            
